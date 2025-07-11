@@ -249,14 +249,3 @@ solar-system-app/
 ## 🤝 Contributing
 
 Fork the repo, create a feature branch, and submit a pull request. Feedback and improvements are welcome!
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-```
-
----
-
-Let me know if you want this content exported to a downloadable `.md` file or formatted with GitHub badges, screenshots, or demo GIFs.
