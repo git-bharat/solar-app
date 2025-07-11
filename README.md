@@ -1,93 +1,98 @@
-Here is your `README.md` file for the **Solar System Application for Children**:
+Here is the complete `README.md` file based on the content extracted from your uploaded PDF (`README.pdf`):
 
 ---
 
 ```markdown
-# 🌌 Solar System Application for Children
+# 🌠 Solar System Application for Children
 
-A full-stack Node.js application designed to educate children about the solar system in an interactive and engaging way. The backend API is built using Express.js and MongoDB, and the frontend uses HTML, CSS, and JavaScript to visualize the solar system.
+A full-stack Node.js application designed to educate children about the solar system in an interactive and engaging way. It features an Express.js backend with MongoDB and a frontend using HTML, CSS, and JavaScript for visualization.
 
 ---
 
 ## 📚 Table of Contents
 
-- [Features](#features)  
-- [Workflow Explained](#workflow-explained)  
-- [Prerequisites](#prerequisites)  
-- [MongoDB Atlas Setup](#mongodb-atlas-setup)  
-- [Local Setup Guide](#local-setup-guide)  
-  - [Backend Setup](#backend-setup)  
-  - [Frontend Setup](#frontend-setup)  
-- [Running the Application](#running-the-application)  
-- [API Endpoints](#api-endpoints)  
-- [Running Tests & Code Coverage](#running-tests--code-coverage)  
-- [Kubernetes Pod Name Display](#kubernetes-pod-name-display)  
-- [Enhancing with Planet Images](#enhancing-with-planet-images)  
-- [Project Structure](#project-structure)  
-- [Contributing](#contributing)  
+- [Features](#features)
+- [Workflow Explained](#workflow-explained)
+- [Prerequisites](#prerequisites)
+- [MongoDB Atlas Setup](#mongodb-atlas-setup)
+- [Local Setup Guide](#local-setup-guide)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [Running the Application](#running-the-application)
+- [API Endpoints](#api-endpoints)
+- [Running Tests & Code Coverage](#running-tests--code-coverage)
+- [Kubernetes Pod Name Display](#kubernetes-pod-name-display)
+- [Enhancing with Planet Images](#enhancing-with-planet-images)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
 - [License](#license)
 
 ---
 
 ## ✅ Features
 
-- **Interactive Visualization:** Dynamic rotating canvas of the solar system.
-- **Planet Data API:** Retrieve and search planet information.
-- **MongoDB Integration:** Persistent data storage with Mongoose.
-- **Kubernetes Ready:** Displays pod name when deployed in Kubernetes.
-- **Test Coverage:** Jest and Supertest included for backend testing.
-- **Expandable Design:** Easy to enhance with images and interactivity.
+- 🪐 Interactive Solar System Visualization with rotating planets
+- 🌍 Planet Data API with search and filter functionality
+- ☁️ MongoDB Atlas Integration
+- 🚀 Kubernetes-ready with pod name display
+- ✅ Unit & Integration tests with coverage reporting
+- 📄 Comprehensive Documentation
 
 ---
 
 ## 🧠 Workflow Explained
 
-**Frontend:**
-- Loads `index.html` and initializes a canvas for the solar system.
-- `script.js` fetches data from the backend to draw planets.
-- User can search or filter planets dynamically.
-- Displays Kubernetes pod name if available.
+### Frontend (Browser)
 
-**Backend:**
-- Built with Express.js and connected to MongoDB using Mongoose.
-- API Endpoints:
+- Loads `index.html` with a canvas element
+- `script.js` fetches planet data from the backend
+- Interactions allow planet filtering and searching
+- Dynamically updates canvas visualization
+- Displays pod name if running in Kubernetes
+
+### Backend (Node.js / Express)
+
+- `server.js` initializes Express server
+- Connects to MongoDB using environment variables
+- Defines API endpoints:
   - `/api/planets`
   - `/api/planets/search`
   - `/api/podname`
-- Handles MongoDB interaction and pod environment detection.
+- Uses Mongoose and a `Planet` schema for data operations
 
-**MongoDB:**
-- Stores structured planet data.
-- Hosted on MongoDB Atlas (cloud-based).
+### Database (MongoDB Atlas)
+
+- Cloud-hosted database
+- Stores planet information: name, description, radius, speed, etc.
 
 ---
 
-## 🛠 Prerequisites
+## 🔧 Prerequisites
 
-- [Node.js](https://nodejs.org/) (LTS recommended)
+- [Node.js](https://nodejs.org/) (LTS version recommended)
 - npm (comes with Node.js)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register) account (Free M0 tier)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) (free M0 tier)
 
 ---
 
 ## ☁️ MongoDB Atlas Setup
 
-1. **Create Account & Cluster**  
-   Sign up → Create Cluster (Free Tier).
+1. **Create a Free Account**  
+   Create a Shared Cluster (Free M0 tier)
 
-2. **Add Database User**  
-   Add new user with **Read/Write** access.
+2. **Create a Database User**  
+   - Use password authentication  
+   - Assign read/write privileges  
+   - Save username & password for `.env`
 
-3. **Whitelist IP**  
-   Allow local IP or 0.0.0.0/0 for testing.
+3. **Configure Network Access**  
+   - Add IP address (current or 0.0.0.0 for testing)
 
 4. **Get Connection String**  
-   Format:
-```
-
-mongodb+srv://<username>:<password>@cluster0.mongodb.net/solar\_system\_db?retryWrites=true\&w=majority
-
-````
+   Example:
+   ```
+   mongodb+srv://<username>:<password>@cluster0.mongodb.net/solar_system_db?retryWrites=true&w=majority
+   ```
 
 ---
 
@@ -98,9 +103,9 @@ mongodb+srv://<username>:<password>@cluster0.mongodb.net/solar\_system\_db?retry
 ```bash
 git clone <your-repo-url>
 cd solar-system-app
-````
+```
 
-Create a `.env` file:
+Create a `.env` file in the root:
 
 ```env
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/solar_system_db?retryWrites=true&w=majority
@@ -115,7 +120,7 @@ npm install
 
 ### Frontend Setup
 
-No separate setup required. The static files are served from the `public/` directory.
+No additional steps. The frontend is statically served by the backend from the `public/` directory.
 
 ---
 
@@ -125,11 +130,7 @@ No separate setup required. The static files are served from the `public/` direc
 npm start
 ```
 
-Visit in browser:
-
-```
-http://localhost:3000
-```
+Visit: [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -137,27 +138,29 @@ http://localhost:3000
 
 ### `GET /api/planets`
 
-* Returns all planets
-* Optional Query: `start`, `end`
-* Example:
+- Retrieves a list of all planets  
+- Optional query parameters:  
+  `start`, `end`  
+- Example:  
+  `/api/planets?start=0&end=3`
 
-  ```
-  /api/planets?start=0&end=3
-  ```
+---
 
 ### `GET /api/planets/search?name=mars`
 
-* Search planet(s) by name
+- Searches for planets by name
+
+---
 
 ### `GET /api/podname`
 
-* Returns Kubernetes Pod name or default message
+- Returns Kubernetes Pod name or default message
 
 ---
 
 ## 🧪 Running Tests & Code Coverage
 
-Install dev dependencies:
+Install test dependencies:
 
 ```bash
 npm install --save-dev jest supertest nyc
@@ -169,33 +172,34 @@ Run tests:
 npm test
 ```
 
-Generate coverage report:
+Generate coverage:
 
 ```bash
 npm run coverage
 ```
 
-View HTML report at: `coverage/lcov-report/index.html`
+Open coverage report:
+`coverage/lcov-report/index.html`
 
 ---
 
-## 🧭 Kubernetes Pod Name Display
+## 📦 Kubernetes Pod Name Display
 
-Simulate locally:
+Simulate Kubernetes locally:
 
-Linux/macOS:
+**Linux/macOS**
 
 ```bash
 POD_NAME=my-local-pod npm start
 ```
 
-Windows CMD:
+**Windows CMD**
 
 ```cmd
 set POD_NAME=my-local-pod && npm start
 ```
 
-PowerShell:
+**Windows PowerShell**
 
 ```powershell
 $env:POD_NAME="my-local-pod"; npm start
@@ -203,23 +207,22 @@ $env:POD_NAME="my-local-pod"; npm start
 
 ---
 
-## 🪐 Enhancing with Planet Images
+## 🌌 Enhancing with Planet Images
 
-1. Place `.png` images in `public/images/` (e.g., `earth.png`, `mars.png`)
-2. Update `planet.json` with:
-
+1. Place planet images in `public/images/`
+2. Add `imageSrc` to `planets.json`:
    ```json
    {
      "name": "Earth",
-     ...
      "imageSrc": "/images/earth.png"
    }
    ```
-3. Modify `script.js` to preload and use image instead of circles.
+3. Modify `drawPlanet()` in `script.js` to use `drawImage()` instead of `ctx.arc`
+4. Preload images before drawing
 
 ---
 
-## 🗂 Project Structure
+## 📁 Project Structure
 
 ```
 solar-system-app/
@@ -228,16 +231,20 @@ solar-system-app/
 │   ├── style.css
 │   ├── script.js
 │   └── images/
+│       ├── sun.png
+│       ├── mercury.png
+│       └── ...
 ├── data/
 │   └── planets.json
 ├── models/
 │   └── Planet.js
 ├── tests/
 │   └── server.test.js
-├── .env
 ├── .env.example
+├── .env
 ├── server.js
 ├── package.json
+├── package-lock.json
 └── README.md
 ```
 
@@ -245,19 +252,15 @@ solar-system-app/
 
 ## 🤝 Contributing
 
-* Fork the repository
-* Create a new branch
-* Submit PR with changes/improvements
+Fork the repo, create a feature branch, and submit a pull request. Feedback and improvements are welcome!
 
 ---
 
 ## 📄 License
 
 This project is licensed under the **MIT License**.
-
 ```
 
 ---
 
-Let me know if you want a downloadable `README.md` file or a version with GitHub markdown enhancements (e.g., shields, badges, demo GIF, etc.).
-```
+Let me know if you want this content exported to a downloadable `.md` file or formatted with GitHub badges, screenshots, or demo GIFs.
