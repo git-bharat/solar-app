@@ -1,0 +1,84 @@
+<!-- public/index.html -->
+<!-- This is the main HTML file for the frontend of the Solar System application. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System for Kids</title>
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS for solar system animation and specific styling -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-gray-900 text-white font-inter min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Adjusted max-w-7xl and added min-h-screen to allow the container to stretch vertically -->
+    <div class="container mx-auto p-6 bg-gray-800 rounded-lg shadow-xl max-w-7xl w-full flex flex-col lg:flex-row min-h-screen">
+        <!-- Left Section: Controls and Information -->
+        <div class="lg:w-1/3 p-4 flex flex-col justify-between">
+            <div>
+                <h1 class="text-4xl font-bold mb-6 text-purple-400 flex items-center">
+                    SOLAR <span class="ml-2 text-yellow-300">🚀</span> SYSTEM
+                </h1>
+
+                <div class="mb-6">
+                    <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                        <!-- Adjusted input classes for better responsiveness and visibility -->
+                        <input type="number" id="startPlanet" placeholder="Start (0-8)" class="w-full sm:w-1/2 p-3 rounded-lg bg-gray-700 border border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-600 text-white placeholder-gray-400">
+                        <input type="number" id="endPlanet" placeholder="End (1-9)" class="w-full sm:w-1/2 p-3 rounded-lg bg-gray-700 border border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-600 text-white placeholder-gray-400">
+                    </div>
+                    <button id="viewPlanetsBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+                        View Planets by Range
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <input type="text" id="searchPlanetInput" placeholder="Search for a Planet" class="w-full p-3 rounded-lg bg-gray-700 border border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-600 text-white placeholder-gray-400 mb-4">
+                    <button id="searchPlanetBtn" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+                        Search the Planet
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <!-- Added id="solarSystemTitle" to the h2 tag -->
+                    <h2 class="text-2xl font-semibold text-purple-300 mb-2" id="solarSystemTitle">Solar System</h2>
+                    <p class="text-gray-300 text-sm leading-relaxed" id="solarSystemDescription">
+                        Our Solar System consists of our star, the Sun, and everything bound to it by gravity –
+                        the planets Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune;
+                        dwarf planets such as Pluto; dozens of moons; and millions
+                        of asteroids, comets, and meteoroids.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-auto text-center text-gray-500 text-sm">
+                <p id="podNameDisplay">Pod - Loading...</p>
+            </div>
+        </div>
+
+        <!-- Right Section: Solar System Canvas -->
+        <!-- Removed min-h-[400px] and lg:min-h-[600px] to allow flex-grow to take effect -->
+        <div class="lg:w-2/3 p-4 flex items-center justify-center relative bg-black rounded-lg overflow-hidden flex-grow">
+            <canvas id="solarSystemCanvas" class="w-full h-full block"></canvas>
+            <!-- Background stars effect (optional, can be done with CSS or canvas) -->
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <div class="star star1"></div>
+                <div class="star star2"></div>
+                <div class="star star3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Box for alerts/confirmations -->
+    <div id="messageBox" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <p id="messageBoxText" class="text-lg mb-6"></p>
+            <button id="messageBoxCloseBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">OK</button>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

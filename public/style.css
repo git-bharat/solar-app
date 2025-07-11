@@ -1,0 +1,194 @@
+/* public/style.css */
+/* This file contains custom CSS for the solar system animation and other specific styles. */
+
+/* Ensure the body and html take full height and font is applied */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* Apply Inter font */
+    /* Moved background GIF to body for complete page background */
+    background-image: url('/images/background.gif');
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-attachment: fixed; /* Keep background fixed when scrolling, if content overflows */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a202c; /* Dark background - this will now be mostly covered by the GIF */
+    color: #edf2f7; /* Light text color */
+}
+
+/* Container for the main application layout */
+.container {
+    display: flex;
+    flex-direction: column; /* Default to column for small screens */
+    width: 100%;
+    max-width: 1024px; /* max-w-4xl */
+    background-color: #2d3748; /* bg-gray-800 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+    padding: 1.5rem; /* p-6 */
+    margin: 1rem; /* p-4 */
+}
+
+/* Responsive adjustments for larger screens */
+@media (min-width: 1024px) { /* lg breakpoint */
+    .container {
+        flex-direction: row; /* Row layout for large screens */
+    }
+}
+
+/* Left section styling */
+.lg\:w-1\/3 {
+    flex: 1 1 33.333333%;
+}
+
+/* Right section styling (canvas container) */
+.lg\:w-2\/3 {
+    flex: 1 1 66.666667%;
+    position: relative;
+    min-height: 400px; /* min-h-[400px] */
+    background-color: #000; /* bg-black - now transparent to show body background */
+    border-radius: 0.5rem; /* rounded-lg */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Removed background GIF from here as it's now on the body */
+}
+
+@media (min-width: 1024px) {
+    .lg\:min-h-\[600px\] {
+        min-height: 600px;
+    }
+}
+
+/* Canvas styling */
+#solarSystemCanvas {
+    background-color: transparent; /* Canvas background is transparent to show stars */
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Input and Button base styles */
+input[type="number"],
+input[type="text"] {
+    padding: 0.75rem; /* p-3 */
+    border-radius: 0.5rem; /* rounded-lg */
+    background-color: #4a5568; /* bg-gray-700 */
+    border: 1px solid #8b5cf6; /* border-purple-500 */
+    color: #edf2f7; /* text-white */
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5); /* focus:ring-2 focus:ring-purple-600 */
+}
+
+button {
+    padding: 0.75rem 1rem; /* py-3 px-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    font-weight: 700; /* font-bold */
+    transition: all 0.3s ease-in-out; /* transition duration-300 ease-in-out */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+}
+
+button:hover {
+    transform: scale(1.05); /* hover:scale-105 */
+}
+
+/* Specific button colors */
+#viewPlanetsBtn {
+    background-color: #8b5cf6; /* bg-purple-600 */
+    color: #fff;
+}
+
+#viewPlanetsBtn:hover {
+    background-color: #7c3aed; /* hover:bg-purple-700 */
+}
+
+#searchPlanetBtn {
+    background-color: #fbd38d; /* bg-yellow-500 */
+    color: #2d3748; /* text-gray-900 */
+}
+
+#searchPlanetBtn:hover {
+    background-color: #f6ad55; /* hover:bg-yellow-600 */
+}
+
+/* Star background animation */
+.star {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 5s infinite ease-in-out;
+}
+
+.star1 {
+    width: 2px;
+    height: 2px;
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+}
+.star2 {
+    width: 1px;
+    height: 1px;
+    top: 50%;
+    left: 70%;
+    animation-delay: 1.5s;
+}
+.star3 {
+    width: 3px;
+    height: 3px;
+    top: 80%;
+    left: 40%;
+    animation-delay: 3s;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+/* Message Box Styling */
+#messageBox {
+    transition: opacity 0.3s ease-in-out;
+}
+
+#messageBox > div {
+    background-color: #2d3748; /* bg-gray-800 */
+    padding: 2rem; /* p-8 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+    max-width: 24rem; /* max-w-sm */
+    width: 100%;
+    text-align: center;
+}
+
+#messageBoxText {
+    font-size: 1.125rem; /* text-lg */
+    margin-bottom: 1.5rem; /* mb-6 */
+    color: #edf2f7; /* text-white */
+}
+
+#messageBoxCloseBtn {
+    background-color: #8b5cf6; /* bg-purple-600 */
+    color: #fff;
+    font-weight: 700;
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+#messageBoxCloseBtn:hover {
+    background-color: #7c3aed; /* hover:bg-purple-700 */
+}

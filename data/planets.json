@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Sun",
+    "description": "The star at the center of our Solar System. It is a nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core.",
+    "radius": 40,
+    "orbitalRadius": 0,
+    "orbitalSpeed": 0,
+    "color": "#FFD700",
+    "imageSrc": "/images/sun.png"
+  },
+  {
+    "name": "Mercury",
+    "description": "The smallest planet in our Solar System and the closest to the Sun. Its orbit around the Sun takes just 88 Earth days.",
+    "radius": 8,
+    "orbitalRadius": 100,
+    "orbitalSpeed": 0.04,
+    "color": "#A9A9A9",
+    "imageSrc": "/images/mercury.png"
+  },
+  {
+    "name": "Venus",
+    "description": "The second planet from the Sun, named after the Roman goddess of love and beauty. It is the second-brightest natural object in the night sky after the Moon.",
+    "radius": 12,
+    "orbitalRadius": 150,
+    "orbitalSpeed": 0.025,
+    "color": "#FFDAB9",
+    "imageSrc": "/images/venus.png"
+  },
+  {
+    "name": "Earth",
+    "description": "Our home planet, the third planet from the Sun, and the only astronomical object known to harbor life.",
+    "radius": 15,
+    "orbitalRadius": 200,
+    "orbitalSpeed": 0.018,
+    "color": "#007bff",
+    "imageSrc": "/images/earth.png"
+  },
+  {
+    "name": "Mars",
+    "description": "The fourth planet from the Sun and the second-smallest planet in the Solar System. It is often referred to as the 'Red Planet'.",
+    "radius": 10,
+    "orbitalRadius": 250,
+    "orbitalSpeed": 0.015,
+    "color": "#FF4500",
+    "imageSrc": "/images/mars.png"
+  },
+  {
+    "name": "Jupiter",
+    "description": "The fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined.",
+    "radius": 25,
+    "orbitalRadius": 320,
+    "orbitalSpeed": 0.01,
+    "color": "#FFA07A",
+    "imageSrc": "/images/jupiter.png"
+  },
+  {
+    "name": "Saturn",
+    "description": "The sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is best known for its prominent ring system.",
+    "radius": 22,
+    "orbitalRadius": 400,
+    "orbitalSpeed": 0.008,
+    "color": "#F4A460",
+    "imageSrc": "/images/saturn.png"
+  },
+  {
+    "name": "Uranus",
+    "description": "The seventh planet from the Sun. It has the third-largest planetary radius and fourth-largest planetary mass in the Solar System.",
+    "radius": 18,
+    "orbitalRadius": 480,
+    "orbitalSpeed": 0.006,
+    "color": "#ADD8E6",
+    "imageSrc": "/images/uranus.png"
+  },
+  {
+    "name": "Neptune",
+    "description": "The eighth and farthest known planet from the Sun. It is the fourth-largest planet by diameter and the third-most massive planet.",
+    "radius": 18,
+    "orbitalRadius": 550,
+    "orbitalSpeed": 0.005,
+    "color": "#4169E1",
+    "imageSrc": "/images/neptune.png"
+  }
+]

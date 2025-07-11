@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Anatomy of the Solar System Application</title>
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Infographic Narrative & Structure Plan:
+           1. Header: A bold title to introduce the application infographic.
+           2. Core Features Section: Use icon-driven cards to quickly convey the app's capabilities.
+           3. Application Workflow Section: A custom HTML/CSS flowchart to visualize the client-server-database interaction.
+           4. Data Visualization Section: Use Chart.js to add a quantitative angle, showing hypothetical planet data (moons per planet) and test coverage. This adds a classic "infographic" feel.
+           5. Technical Deep-Dive Section: Present the API endpoints and the project's file structure in a clean, organized manner using styled cards and lists.
+           6. Setup & Deployment Section: Visualize the setup process and the Kubernetes/Host display feature.
+           7. Footer: Conclude with a note about the open-source nature of the project.
+           Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All diagrams are built with structured HTML/CSS and all charts are rendered on a <canvas> element by Chart.js.
+        */
+
+        /* Visualization Selection Plan:
+           - Core Features: Goal: Organize. Method: Styled HTML list with Unicode icons. Justification: Quickly scannable and visually appealing for key features. NO SVG.
+           - Application Workflow: Goal: Organize. Method: Structured HTML/CSS with Tailwind flexbox. Justification: Creates a clear, custom flowchart without external libraries or SVG.
+           - Moons Per Planet Chart: Goal: Compare. Method: Chart.js Bar Chart. Justification: Ideal for comparing discrete quantities across categories (planets). Renders to Canvas. NO SVG.
+           - Test Coverage Chart: Goal: Inform. Method: Chart.js Donut Chart. Justification: Excellent for showing a single, important percentage-based metric in a visually engaging way. Renders to Canvas. NO SVG.
+           - API Endpoints: Goal: Organize. Method: Styled HTML cards. Justification: Better for readability and segmenting information than a standard table. NO SVG.
+           - Project Structure: Goal: Organize. Method: Styled nested HTML lists. Justification: Natively represents a hierarchical file tree structure effectively. NO SVG.
+        */
+        
+        /* Selected Color Palette: "Brilliant Blues & Oranges" - A vibrant, high-contrast tech palette.
+           #003f5c, #665191, #d45087, #f95d6a, #ff7c43, #ffa600
+        */
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0A192F; /* A dark navy blue, better than pure black */
+        }
+        .font-space {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass-card {
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <div class="container mx-auto p-4 md:p-8 lg:p-12">
+
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="font-space text-4xl md:text-6xl font-bold text-white mb-2">Anatomy of the</h1>
+            <h2 class="font-space text-4xl md:text-6xl font-bold text-[#ffa600]">Solar System App</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-400">A visual deep-dive into the architecture, features, and data behind the interactive learning application for children.</p>
+        </header>
+
+        <!-- Core Features Section -->
+        <section class="mb-20">
+            <h3 class="font-space text-3xl font-bold text-center mb-12 text-white">Core Features</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl mb-4 text-[#f95d6a]">🌌</div>
+                    <h4 class="text-xl font-bold font-space mb-2 text-white">Interactive Visualization</h4>
+                    <p class="text-gray-400">Dynamic, revolving solar system adapting to any screen size for an immersive experience.</p>
+                </div>
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl mb-4 text-[#ff7c43]">📊</div>
+                    <h4 class="text-xl font-bold font-space mb-2 text-white">Dynamic Data Display</h4>
+                    <p class="text-gray-400">Searched planet information dynamically updates titles and descriptions for focused learning.</p>
+                </div>
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl mb-4 text-[#ffa600]">☁️</div>
+                    <h4 class="text-xl font-bold font-space mb-2 text-white">MongoDB Integration</h4>
+                    <p class="text-gray-400">Persistently stores all planet data using a flexible and scalable cloud database.</p>
+                </div>
+                <div class="glass-card p-6 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-5xl mb-4 text-[#d45087]">⚙️</div>
+                    <h4 class="text-xl font-bold font-space mb-2 text-white">Kubernetes Ready</h4>
+                    <p class="text-gray-400">Displays pod name when deployed in a K8s cluster, or host IP when run locally.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Workflow Section -->
+        <section class="mb-20">
+            <h3 class="font-space text-3xl font-bold text-center mb-12 text-white">Application Workflow</h3>
+            <p class="text-center max-w-2xl mx-auto text-gray-400 mb-12">The application uses a standard client-server architecture. The user's browser interacts with a Node.js backend, which in turn communicates with the MongoDB database to fetch and serve planet data.</p>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
+                <!-- Client -->
+                <div class="w-full md:w-1/4 glass-card p-6 rounded-lg text-center border-2 border-[#ffa600]">
+                    <h4 class="text-2xl font-bold font-space text-white">1. Client</h4>
+                    <p class="text-gray-300">(Browser)</p>
+                </div>
+                <!-- Arrow -->
+                <div class="text-4xl font-bold text-[#ff7c43] transform md:-rotate-0 rotate-90">&rarr;</div>
+                <!-- Server -->
+                <div class="w-full md:w-1/4 glass-card p-6 rounded-lg text-center border-2 border-[#f95d6a]">
+                    <h4 class="text-2xl font-bold font-space text-white">2. Server</h4>
+                    <p class="text-gray-300">(Node.js & Express)</p>
+                </div>
+                <!-- Arrow -->
+                <div class="text-4xl font-bold text-[#d45087] transform md:-rotate-0 rotate-90">&rarr;</div>
+                <!-- Database -->
+                <div class="w-full md:w-1/4 glass-card p-6 rounded-lg text-center border-2 border-[#a05195]">
+                    <h4 class="text-2xl font-bold font-space text-white">3. Database</h4>
+                    <p class="text-gray-300">(MongoDB Atlas)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization Section -->
+        <section class="mb-20">
+             <h3 class="font-space text-3xl font-bold text-center mb-12 text-white">A Look at the Data</h3>
+             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Bar Chart -->
+                <div class="glass-card p-6 rounded-lg">
+                    <h4 class="font-space text-2xl font-bold text-center mb-2 text-white">Moons per Planet</h4>
+                    <p class="text-center text-gray-400 mb-6">A key part of learning about the solar system is comparing planets. This chart shows the number of known moons for each major planet, highlighting the vast differences between terrestrial and gas giant worlds.</p>
+                    <div class="chart-container">
+                        <canvas id="moonsChart"></canvas>
+                    </div>
+                </div>
+                <!-- Donut Chart -->
+                <div class="glass-card p-6 rounded-lg">
+                    <h4 class="font-space text-2xl font-bold text-center mb-2 text-white">API Test Coverage</h4>
+                     <p class="text-center text-gray-400 mb-6">Quality assurance is crucial. The application's backend API includes a suite of tests to ensure reliability. This chart represents a hypothetical 95% code coverage, a common goal for robust applications.</p>
+                    <div class="chart-container">
+                        <canvas id="coverageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Deep-Dive Section -->
+        <section class="mb-20">
+            <h3 class="font-space text-3xl font-bold text-center mb-12 text-white">Technical Deep-Dive</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- API Endpoints -->
+                <div>
+                    <h4 class="font-space text-2xl font-bold text-center mb-6 text-white">API Endpoints</h4>
+                    <div class="space-y-4">
+                        <div class="glass-card p-4 rounded-md">
+                            <p class="font-mono text-lg"><span class="font-bold text-[#f95d6a] mr-2">GET</span> /api/planets</p>
+                            <p class="text-gray-400 ml-2">Retrieves a list of all planets, with optional start/end query params.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-md">
+                            <p class="font-mono text-lg"><span class="font-bold text-[#f95d6a] mr-2">GET</span> /api/planets/search</p>
+                            <p class="text-gray-400 ml-2">Searches for a planet by its name.</p>
+                        </div>
+                        <div class="glass-card p-4 rounded-md">
+                            <p class="font-mono text-lg"><span class="font-bold text-[#f95d6a] mr-2">GET</span> /api/podname</p>
+                             <p class="text-gray-400 ml-2">Returns the K8s pod name or a fallback message.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Structure -->
+                <div>
+                    <h4 class="font-space text-2xl font-bold text-center mb-6 text-white">Project Structure</h4>
+                    <div class="glass-card p-6 rounded-lg font-mono text-sm text-gray-300">
+                        <p>solar-system-app/</p>
+                        <ul class="ml-4 border-l border-gray-600 pl-4">
+                            <li><span class="text-[#ffa600]">├──</span> public/</li>
+                            <li class="ml-4 border-l border-gray-600 pl-4">
+                                <p><span class="text-[#ffa600]">├──</span> index.html</p>
+                                <p><span class="text-[#ffa600]">├──</span> style.css</p>
+                                <p><span class="text-[#ffa600]">└──</span> script.js</p>
+                            </li>
+                            <li><span class="text-[#f95d6a]">├──</span> data/</li>
+                            <li class="ml-4 border-l border-gray-600 pl-4"><p><span class="text-[#f95d6a]">└──</span> planets.json</p></li>
+                            <li><span class="text-[#d45087]">├──</span> models/</li>
+                            <li class="ml-4 border-l border-gray-600 pl-4"><p><span class="text-[#d45087]">└──</span> Planet.js</p></li>
+                            <li><span class="text-[#a05195]">├──</span> server.js</li>
+                            <li><span class="text-[#665191]">└──</span> package.json</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Tooltip Configuration for all charts
+        const tooltipTitleCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+        
+        // Bar Chart: Moons per Planet
+        const moonsCtx = document.getElementById('moonsChart').getContext('2d');
+        new Chart(moonsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
+                datasets: [{
+                    label: '# of Moons',
+                    data: [0, 0, 1, 2, 79, 82, 27, 14],
+                    backgroundColor: [
+                        '#665191',
+                        '#a05195',
+                        '#d45087',
+                        '#f95d6a',
+                        '#ff7c43',
+                        '#ffa600',
+                        '#003f5c',
+                        '#2f4b7c'
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 0.25)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...tooltipTitleCallback,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: 'white' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    },
+                    x: {
+                        ticks: { color: 'white' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+
+        // Donut Chart: Test Coverage
+        const coverageCtx = document.getElementById('coverageChart').getContext('2d');
+        new Chart(coverageCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Covered', 'Not Covered'],
+                datasets: [{
+                    data: [95, 5],
+                    backgroundColor: ['#ffa600', '#003f5c'],
+                    borderColor: '#0A192F',
+                    borderWidth: 4,
+                }]
+            },
+            options: {
+                ...tooltipTitleCallback,
+                maintainAspectRatio: false,
+                responsive: true,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: 'white',
+                            font: { size: 14 }
+                        }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+
+{
+  "name": "solar-system-backend",
+  "version": "1.0.0",
+  "description": "Backend for Solar System application for children",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "coverage": "nyc npm test"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "solar-system",
+    "education"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nyc": "^15.1.0",
+    "supertest": "^7.0.0"
+  }
+}
