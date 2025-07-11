@@ -1,8 +1,4 @@
-Here is the complete `README.md` file based on the content extracted from your uploaded PDF (`README.pdf`):
 
----
-
-```markdown
 # 🌠 Solar System Application for Children
 
 A full-stack Node.js application designed to educate children about the solar system in an interactive and engaging way. It features an Express.js backend with MongoDB and a frontend using HTML, CSS, and JavaScript for visualization.
