@@ -20,11 +20,7 @@ env:
 jobs:
   unit-testing:
     name: Unit Testing
-    strategy:
-      matrix:
-        os: [ubuntu-latest,ubuntu-24.04]
-        node_version: [18,19]
-    runs-on: $${{matrix.os}}
+    runs-on: runner01
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4 # Action to checkout your code
