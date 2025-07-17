@@ -16,6 +16,7 @@ process.env.POD_NAME = 'test-pod-123'; // Mock K8s pod name
 let server; // Variable to hold the server instance
 
 // Before all tests, connect to the test database, seed data, and start the server
+// Increased timeout for beforeAll hook to allow for DB connection and seeding
 beforeAll(async () => {
   // Ensure a clean connection before testing
   // Disconnect any existing connection to prevent "Can't call openUri()" error
@@ -23,7 +24,8 @@ beforeAll(async () => {
     await mongoose.disconnect();
   }
 
-  await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+  // Connect to MongoDB without deprecated options
+  await mongoose.connect(process.env.MONGO_URI);
   console.log('Test database connected.');
 
   // Clear the collection before seeding to ensure a clean state for each test run
@@ -35,7 +37,7 @@ beforeAll(async () => {
   server = app.listen(process.env.PORT, () => {
     console.log(`Test server running on port ${process.env.PORT}`);
   });
-});
+}, 30000); // Set a 30-second timeout for this hook
 
 // After all tests, disconnect from the database and close the server
 afterAll(async () => {
