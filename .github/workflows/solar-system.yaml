@@ -41,6 +41,7 @@ jobs:
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
+         pwd
          mkdir test-report  
          npm run test
         
