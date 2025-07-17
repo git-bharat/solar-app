@@ -22,8 +22,8 @@ jobs:
     name: Unit Testing
     strategy:
       matrix:
-        os: [ubuntu-latest,ubuntu-20.04]
-        node_version: [17,18,19]
+        os: [ubuntu-latest,ubuntu-24.04]
+        node_version: [18,19]
     runs-on: $${{matrix.os}}
     steps:
       - name: Checkout Repository
