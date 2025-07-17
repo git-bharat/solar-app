@@ -4,7 +4,7 @@
 
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../server'); // Import the Express app (now without auto-start)
+const app = require('../server'); // Import the Express app (now without auto-start or auto-DB connect)
 const Planet = require('../models/Planet'); // Import the Planet model
 const initialPlanets = require('../data/planets.json'); // Initial data for seeding
 
@@ -18,9 +18,11 @@ let server; // Variable to hold the server instance
 // Before all tests, connect to the test database, seed data, and start the server
 beforeAll(async () => {
   // Ensure a clean connection before testing
-  if (mongoose.connection.readyState === 1) {
+  // Disconnect any existing connection to prevent "Can't call openUri()" error
+  if (mongoose.connection.readyState !== 0) { // 0 = disconnected
     await mongoose.disconnect();
   }
+
   await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
   console.log('Test database connected.');
 
@@ -37,12 +39,16 @@ beforeAll(async () => {
 
 // After all tests, disconnect from the database and close the server
 afterAll(async () => {
-  await mongoose.connection.close();
-  console.log('Test database disconnected.');
-
+  // Close the server first to release the port
   if (server) {
-    await new Promise(resolve => server.close(resolve)); // Close the server
+    await new Promise(resolve => server.close(resolve));
     console.log('Test server closed.');
+  }
+
+  // Then disconnect Mongoose
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.connection.close(); // Use close() instead of disconnect() for clean shutdown
+    console.log('Test database disconnected.');
   }
 });
 

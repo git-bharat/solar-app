@@ -20,21 +20,26 @@ app.use(express.json());
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// MongoDB Connection
-// This connection logic will only run if MONGO_URI is defined.
-// For tests, we'll manage the connection directly in the test file.
-if (MONGO_URI) {
-  mongoose.connect(MONGO_URI)
-    .then(() => {
-      console.log('MongoDB connected...');
-      // Seed initial data if the collection is empty
-      seedDatabase();
-    })
-    .catch(err => console.error('MongoDB connection error:', err));
-} else {
-  console.warn('MONGO_URI is not defined. Database connection will not be established.');
+/**
+ * @function connectDB
+ * @description Establishes a connection to MongoDB.
+ * This function is now separate and explicitly called only when server.js is run directly.
+ */
+async function connectDB() {
+  if (!MONGO_URI) {
+    console.warn('MONGO_URI is not defined. Database connection will not be established.');
+    return;
+  }
+  try {
+    await mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('MongoDB connected...');
+    // Seed initial data if the collection is empty
+    await seedDatabase();
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    process.exit(1); // Exit process if DB connection fails
+  }
 }
-
 
 /**
  * @function seedDatabase
@@ -61,7 +66,7 @@ async function seedDatabase() {
  * @route GET /api/planets
  * @description Get all planets or a specified range of planets.
  * @queryParam {number} [start] - The starting index (0-based) for fetching planets.
- * @queryParam {number} [end] - The ending index (exclusive) for fetching planets.
+ * @queryParam {number} {end} - The ending index (exclusive) for fetching planets.
  * @returns {Array<Object>} An array of planet objects.
  */
 app.get('/api/planets', async (req, res) => {
@@ -143,11 +148,13 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-// Start the server ONLY if this file is run directly (e.g., node server.js)
-// This prevents the server from starting when imported by test files.
+// Start the server and connect to DB ONLY if this file is run directly (e.g., node server.js)
+// This prevents the server from starting or connecting to DB when imported by test files.
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  connectDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   });
 }
 
