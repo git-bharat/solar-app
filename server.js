@@ -21,13 +21,20 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB Connection
-mongoose.connect(MONGO_URI)
-  .then(() => {
-    console.log('MongoDB connected...');
-    // Seed initial data if the collection is empty
-    seedDatabase();
-  })
-  .catch(err => console.error('MongoDB connection error:', err));
+// This connection logic will only run if MONGO_URI is defined.
+// For tests, we'll manage the connection directly in the test file.
+if (MONGO_URI) {
+  mongoose.connect(MONGO_URI)
+    .then(() => {
+      console.log('MongoDB connected...');
+      // Seed initial data if the collection is empty
+      seedDatabase();
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
+} else {
+  console.warn('MONGO_URI is not defined. Database connection will not be established.');
+}
+
 
 /**
  * @function seedDatabase
@@ -136,9 +143,12 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Start the server ONLY if this file is run directly (e.g., node server.js)
+// This prevents the server from starting when imported by test files.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 module.exports = app; // Export app for testing

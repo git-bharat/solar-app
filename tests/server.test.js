@@ -4,7 +4,7 @@
 
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../server'); // Import the Express app
+const app = require('../server'); // Import the Express app (now without auto-start)
 const Planet = require('../models/Planet'); // Import the Planet model
 const initialPlanets = require('../data/planets.json'); // Initial data for seeding
 
@@ -13,19 +13,37 @@ process.env.MONGO_URI = 'mongodb://localhost:27017/solar_system_test'; // Use a 
 process.env.PORT = 3001; // Use a different port for tests
 process.env.POD_NAME = 'test-pod-123'; // Mock K8s pod name
 
-// Before all tests, connect to the test database and seed data
+let server; // Variable to hold the server instance
+
+// Before all tests, connect to the test database, seed data, and start the server
 beforeAll(async () => {
+  // Ensure a clean connection before testing
+  if (mongoose.connection.readyState === 1) {
+    await mongoose.disconnect();
+  }
   await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+  console.log('Test database connected.');
+
   // Clear the collection before seeding to ensure a clean state for each test run
   await Planet.deleteMany({});
   await Planet.insertMany(initialPlanets);
-  console.log('Test database connected and seeded.');
+  console.log('Test database seeded.');
+
+  // Start the Express server for testing
+  server = app.listen(process.env.PORT, () => {
+    console.log(`Test server running on port ${process.env.PORT}`);
+  });
 });
 
-// After all tests, disconnect from the database
+// After all tests, disconnect from the database and close the server
 afterAll(async () => {
   await mongoose.connection.close();
   console.log('Test database disconnected.');
+
+  if (server) {
+    await new Promise(resolve => server.close(resolve)); // Close the server
+    console.log('Test server closed.');
+  }
 });
 
 // Describe block for Planet API tests
