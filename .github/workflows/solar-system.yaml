@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js Version
         uses: actions/setup-node@v4 # Action to set up Node.js environment
         with:
-          node-version: ${{matrix.node_version}} # Use Node.js 20, as defined in your Dockerfile
+          node-version: 20 # Use Node.js 20, as defined in your Dockerfile
 
       - name: Install Dependencies
         run: npm install # Install project dependencies
