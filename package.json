@@ -1,5 +1,4 @@
-// package.json
-// This file defines your project's metadata and manages its dependencies.
+
 {
   "name": "solar-system-backend",
   "version": "1.0.0",
