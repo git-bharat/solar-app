@@ -1,0 +1,42 @@
+name: Solar System CI/CD Workflow
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+  # Triggers the workflow on push events to specific branches
+  push:
+    branches:
+      - main
+      - feature/dev # Assuming your development feature branch is named this way
+
+env:
+  # Define global environment variables for the workflow
+  IMAGE_NAME: solar-system-app # Name of your Docker image
+  DOCKER_REGISTRY: docker.io # Or your specific registry, e.g., ghcr.io, your.ecr.aws
+  # Use GITHUB_SHA for a unique tag based on the commit hash, or a semantic version
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  unit-testing:
+    name: Unit Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Action to checkout your code
+
+      - name: Setup Node.js Version
+        uses: actions/setup-node@v4 # Action to set up Node.js environment
+        with:
+          node-version: 20 # Use Node.js 20, as defined in your Dockerfile
+
+      - name: Install Dependencies
+        run: npm install # Install project dependencies
+
+      - name: Run Unit Tests
+        # Pass MONGO_URI from GitHub secrets if your tests (e.g., integration tests)
+        # require a live database connection. If tests are purely unit with mocks,
+        # this might not be strictly necessary for the 'npm test' command itself.
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: npm test
