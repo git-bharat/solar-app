@@ -20,7 +20,7 @@ env:
 jobs:
   unit-testing:
     name: Unit Testing
-    runs-on: runner01
+    runs-on: self-hosted
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4 # Action to checkout your code
